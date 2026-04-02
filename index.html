@@ -340,6 +340,45 @@
       padding: 0 4px;
     }
 
+    /* ===== Grid Pengurangan ===== */
+    .subtraction-group-removed {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: #fff0f0;
+      border-radius: 16px;
+      border: 2px solid #ffcccc;
+    }
+
+    .subtraction-group-removed .obj {
+      font-size: 2.6rem;
+      opacity: 0;
+      transform: scale(0) rotate(-180deg);
+      animation: popIn 0.4s ease forwards;
+      position: relative;
+    }
+
+    .subtraction-group-removed .obj::after {
+      content: '✕';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.8rem;
+      color: #dc3545;
+      font-weight: 900;
+      text-shadow: 0 0 4px #fff;
+    }
+
+    .subtraction-sign {
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: #dc3545;
+      padding: 0 4px;
+    }
+
     /* ===== Pilihan Jawaban ===== */
     .choices {
       display: grid;
@@ -639,8 +678,17 @@
       }
 
       .addition-sign,
-      .addition-equals {
+      .addition-equals,
+      .subtraction-sign {
         font-size: 2rem;
+      }
+
+      .subtraction-group-removed .obj {
+        font-size: 2rem;
+      }
+
+      .subtraction-group-removed .obj::after {
+        font-size: 1.3rem;
       }
     }
   </style>
@@ -673,15 +721,14 @@
           </div>
           <div class="level-arrow">➜</div>
         </div>
-        <div class="level-card disabled">
-          <span class="badge-coming-soon">Segera Hadir</span>
+        <div class="level-card active" onclick="startLevel(3)">
           <div class="level-icon bg-orange">➖</div>
           <div class="level-info">
             <div class="level-tag">Level 3</div>
             <div class="level-title">Pengurangan</div>
-            <div class="level-desc">Latihan mengurangkan dua angka</div>
+            <div class="level-desc">Kurangkan benda dari kelompok</div>
           </div>
-          <div class="level-arrow">🔒</div>
+          <div class="level-arrow">➜</div>
         </div>
       </div>
     </div>
@@ -801,7 +848,7 @@
     }
 
     function startLevel(level) {
-      if (level > 2) return;
+      if (level > 3) return;
       currentLevel = level;
 
       correctAnswer = 0;
@@ -811,7 +858,7 @@
       answered = false;
 
       // Subtitle sesuai level
-      const subtitles = { 1: 'Level 1 — Menghitung Benda', 2: 'Level 2 — Penjumlahan' };
+      const subtitles = { 1: 'Level 1 — Menghitung Benda', 2: 'Level 2 — Penjumlahan', 3: 'Level 3 — Pengurangan' };
       document.getElementById('gameSubtitle').textContent = subtitles[level];
 
       document.getElementById('homeScreen').style.display = 'none';
@@ -863,7 +910,7 @@
       const options = new Set([correct]);
       while (options.size < 4) {
         const min = Math.max(1, correct - 5);
-        const max = Math.min(correct + 5, currentLevel === 2 ? 20 : 20);
+        const max = correct + 5;
         const d = Math.floor(Math.random() * (max - min + 1)) + min;
         if (d !== correct) options.add(d);
       }
@@ -883,6 +930,7 @@
 
       if (currentLevel === 1) generateLevel1();
       else if (currentLevel === 2) generateLevel2();
+      else if (currentLevel === 3) generateLevel3();
     }
 
     /** Level 1: Menghitung Benda */
@@ -956,6 +1004,59 @@
       container.appendChild(addGrid);
 
       renderChoices(total, 'choices');
+    }
+
+    /** Level 3: Pengurangan */
+    function generateLevel3() {
+      const obj = pickObject();
+
+      // Batas maks berdasarkan nomor soal
+      // Soal 1-7 (index 0-6): maks angka awal 10
+      // Soal 8-10 (index 7-9): maks angka awal 15
+      const maxNum = currentQuestion < 7 ? 10 : 15;
+
+      // Hitung angka A dan B (A > B, A >= 2, B >= 1)
+      const a = Math.floor(Math.random() * (maxNum - 1)) + 2; // 2 sampai maxNum
+      const b = Math.floor(Math.random() * (a - 1)) + 1; // 1 sampai a-1
+      const result = a - b;
+      correctAnswer = result;
+
+      document.getElementById('question').innerHTML =
+        `Berapa <span class="num-highlight">${a}</span> <span class="object-name">${obj.name}</span> − <span class="num-highlight">${b}</span> <span class="object-name">${obj.name}</span> ?`;
+
+      // Render grid pengurangan: [grup A utuh] − [grup B dicoret] = ?
+      const container = document.getElementById('objectContainer');
+      container.innerHTML = '';
+      const subGrid = document.createElement('div');
+      subGrid.className = 'addition-grid';
+
+      // Grup A (semua benda)
+      const groupA = document.createElement('div');
+      groupA.className = 'addition-group';
+      for (let i = 0; i < a; i++) groupA.appendChild(createEmojiSpan(obj.emoji, i * 0.06));
+      subGrid.appendChild(groupA);
+
+      // Tanda −
+      const minus = document.createElement('div');
+      minus.className = 'subtraction-sign';
+      minus.textContent = '−';
+      subGrid.appendChild(minus);
+
+      // Grup B (benda yang dikurangi, dicoret)
+      const groupB = document.createElement('div');
+      groupB.className = 'subtraction-group-removed';
+      for (let i = 0; i < b; i++) groupB.appendChild(createEmojiSpan(obj.emoji, (a + i) * 0.06));
+      subGrid.appendChild(groupB);
+
+      // Tanda = ?
+      const eq = document.createElement('div');
+      eq.className = 'addition-equals';
+      eq.textContent = '= ?';
+      subGrid.appendChild(eq);
+
+      container.appendChild(subGrid);
+
+      renderChoices(result, 'choices');
     }
 
     /* ===== Cek Jawaban ===== */
