@@ -116,6 +116,14 @@
       background: #fff4e6;
     }
 
+    .level-icon.bg-purple {
+      background: #f3e8ff;
+    }
+
+    .level-icon.bg-pink {
+      background: #fce4ec;
+    }
+
     .level-info {
       flex: 1;
     }
@@ -338,6 +346,42 @@
       font-weight: 900;
       color: #ff6b6b;
       padding: 0 4px;
+    }
+
+    /* ===== Grid Perbandingan ===== */
+    .compare-grid {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      min-height: 120px;
+      margin-bottom: 25px;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 20px;
+      border: 3px dashed #dee2e6;
+    }
+
+    .compare-label {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #888;
+      text-align: center;
+      margin-bottom: 4px;
+    }
+
+    .compare-vs {
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: #764ba2;
+      padding: 0 4px;
+    }
+
+    @media (max-width: 500px) {
+      .compare-vs {
+        font-size: 2rem;
+      }
     }
 
     /* ===== Grid Pengurangan ===== */
@@ -730,6 +774,24 @@
           </div>
           <div class="level-arrow">➜</div>
         </div>
+        <div class="level-card active" onclick="startLevel(4)">
+          <div class="level-icon bg-purple">⚖️</div>
+          <div class="level-info">
+            <div class="level-tag">Level 4</div>
+            <div class="level-title">Lebih Banyak</div>
+            <div class="level-desc">Pilih kelompok yang jumlahnya lebih banyak</div>
+          </div>
+          <div class="level-arrow">➜</div>
+        </div>
+        <div class="level-card active" onclick="startLevel(5)">
+          <div class="level-icon bg-pink">🔍</div>
+          <div class="level-info">
+            <div class="level-tag">Level 5</div>
+            <div class="level-title">Lebih Sedikit</div>
+            <div class="level-desc">Pilih kelompok yang jumlahnya lebih sedikit</div>
+          </div>
+          <div class="level-arrow">➜</div>
+        </div>
       </div>
     </div>
 
@@ -848,7 +910,7 @@
     }
 
     function startLevel(level) {
-      if (level > 3) return;
+      if (level > 5) return;
       currentLevel = level;
 
       correctAnswer = 0;
@@ -858,7 +920,7 @@
       answered = false;
 
       // Subtitle sesuai level
-      const subtitles = { 1: 'Level 1 — Menghitung Benda', 2: 'Level 2 — Penjumlahan', 3: 'Level 3 — Pengurangan' };
+      const subtitles = { 1: 'Level 1 — Menghitung Benda', 2: 'Level 2 — Penjumlahan', 3: 'Level 3 — Pengurangan', 4: 'Level 4 — Lebih Banyak', 5: 'Level 5 — Lebih Sedikit' };
       document.getElementById('gameSubtitle').textContent = subtitles[level];
 
       document.getElementById('homeScreen').style.display = 'none';
@@ -907,6 +969,7 @@
     function renderChoices(correct, containerId) {
       const el = document.getElementById(containerId);
       el.innerHTML = '';
+      el.className = 'choices';
       const options = new Set([correct]);
       while (options.size < 4) {
         const min = Math.max(1, correct - 5);
@@ -931,6 +994,8 @@
       if (currentLevel === 1) generateLevel1();
       else if (currentLevel === 2) generateLevel2();
       else if (currentLevel === 3) generateLevel3();
+      else if (currentLevel === 4) generateLevel4();
+      else if (currentLevel === 5) generateLevel5();
     }
 
     /** Level 1: Menghitung Benda */
@@ -1059,6 +1124,102 @@
       renderChoices(result, 'choices');
     }
 
+    /** Helper: Render visual perbandingan dua kelompok */
+    function renderCompareVisual(obj, a, b) {
+      const container = document.getElementById('objectContainer');
+      container.innerHTML = '';
+      const cmpGrid = document.createElement('div');
+      cmpGrid.className = 'compare-grid';
+
+      // Kolom A
+      const colA = document.createElement('div');
+      colA.style.textAlign = 'center';
+      const labelA = document.createElement('div');
+      labelA.className = 'compare-label';
+      labelA.textContent = `Kelompok A (${a})`;
+      colA.appendChild(labelA);
+      const groupA = document.createElement('div');
+      groupA.className = 'addition-group';
+      for (let i = 0; i < a; i++) groupA.appendChild(createEmojiSpan(obj.emoji, i * 0.06));
+      colA.appendChild(groupA);
+      cmpGrid.appendChild(colA);
+
+      // Tanda VS
+      const vs = document.createElement('div');
+      vs.className = 'compare-vs';
+      vs.textContent = 'vs';
+      cmpGrid.appendChild(vs);
+
+      // Kolom B
+      const colB = document.createElement('div');
+      colB.style.textAlign = 'center';
+      const labelB = document.createElement('div');
+      labelB.className = 'compare-label';
+      labelB.textContent = `Kelompok B (${b})`;
+      colB.appendChild(labelB);
+      const groupB = document.createElement('div');
+      groupB.className = 'addition-group';
+      for (let i = 0; i < b; i++) groupB.appendChild(createEmojiSpan(obj.emoji, (a + i) * 0.06));
+      colB.appendChild(groupB);
+      cmpGrid.appendChild(colB);
+
+      container.appendChild(cmpGrid);
+    }
+
+    /** Helper: Render pilihan jawaban perbandingan (Kelompok A / Kelompok B) */
+    function renderCompareChoices(answer) {
+      const choicesEl = document.getElementById('choices');
+      choicesEl.innerHTML = '';
+      choicesEl.className = 'choices';
+
+      [{ label: 'Kelompok A', value: 'A' }, { label: 'Kelompok B', value: 'B' }].forEach(opt => {
+        const btn = document.createElement('button');
+        btn.classList.add('choice-btn');
+        btn.textContent = opt.label;
+        btn.dataset.value = opt.value;
+        btn.addEventListener('click', () => checkAnswer(opt.value, btn));
+        choicesEl.appendChild(btn);
+      });
+    }
+
+    /** Level 4: Lebih Banyak */
+    function generateLevel4() {
+      const obj = pickObject();
+      const maxNum = currentQuestion < 7 ? 10 : 15;
+
+      // Dua angka berbeda (minimal 1)
+      let a = Math.floor(Math.random() * maxNum) + 1;
+      let b;
+      do { b = Math.floor(Math.random() * maxNum) + 1; } while (b === a);
+
+      correctAnswer = a > b ? 'A' : 'B';
+
+      document.getElementById('question').innerHTML =
+        `<span class="object-name">${obj.name}</span>: Mana yang <span class="num-highlight">lebih banyak</span>?`;
+
+      renderCompareVisual(obj, a, b);
+      renderCompareChoices(correctAnswer);
+    }
+
+    /** Level 5: Lebih Sedikit */
+    function generateLevel5() {
+      const obj = pickObject();
+      const maxNum = currentQuestion < 7 ? 10 : 15;
+
+      // Dua angka berbeda (minimal 1)
+      let a = Math.floor(Math.random() * maxNum) + 1;
+      let b;
+      do { b = Math.floor(Math.random() * maxNum) + 1; } while (b === a);
+
+      correctAnswer = a < b ? 'A' : 'B';
+
+      document.getElementById('question').innerHTML =
+        `<span class="object-name">${obj.name}</span>: Mana yang <span class="num-highlight">lebih sedikit</span>?`;
+
+      renderCompareVisual(obj, a, b);
+      renderCompareChoices(correctAnswer);
+    }
+
     /* ===== Cek Jawaban ===== */
     function checkAnswer(chosen, btnEl) {
       if (answered) return;
@@ -1078,11 +1239,17 @@
       } else {
         score.wrong++;
         btnEl.classList.add('wrong-choice');
-        feedback.textContent = '❌ Jawaban yang benar adalah ' + correctAnswer;
+        if (currentLevel === 4 || currentLevel === 5) {
+          const answerLabels = { 'A': 'Kelompok A', 'B': 'Kelompok B' };
+          feedback.textContent = '❌ Jawaban yang benar adalah ' + (answerLabels[correctAnswer] || correctAnswer);
+        } else {
+          feedback.textContent = '❌ Jawaban yang benar adalah ' + correctAnswer;
+        }
         feedback.className = 'feedback wrong';
         playSound('wrong');
         allBtns.forEach(btn => {
-          if (parseInt(btn.textContent) === correctAnswer) btn.classList.add('correct-choice');
+          const btnValue = btn.dataset.value || parseInt(btn.textContent);
+          if (btnValue === correctAnswer || (typeof correctAnswer === 'number' && parseInt(btn.textContent) === correctAnswer)) btn.classList.add('correct-choice');
           else if (btn !== btnEl) btn.classList.add('dim');
         });
       }
