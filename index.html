@@ -20,13 +20,13 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px;
+      padding: 12px;
     }
 
     .container {
       background: #fff;
       border-radius: 30px;
-      padding: 40px 30px;
+      padding: 26px 30px;
       max-width: 700px;
       width: 100%;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -34,16 +34,16 @@
     }
 
     h1 {
-      font-size: 2.8rem;
+      font-size: 2.4rem;
       color: #ff6b6b;
-      margin-bottom: 5px;
+      margin-bottom: 4px;
       text-shadow: 2px 2px 0 #ffe0e0;
     }
 
     .subtitle {
       font-size: 1.05rem;
       color: #999;
-      margin-bottom: 25px;
+      margin-bottom: 18px;
     }
 
     /* ===== Halaman Awal ===== */
@@ -54,7 +54,7 @@
     .level-grid {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 8px;
       max-width: 480px;
       margin: 0 auto;
     }
@@ -63,9 +63,9 @@
       position: relative;
       display: flex;
       align-items: center;
-      gap: 18px;
-      padding: 20px 24px;
-      border-radius: 20px;
+      gap: 16px;
+      padding: 12px 20px;
+      border-radius: 18px;
       border: 3px solid #dee2e6;
       background: #fff;
       text-align: left;
@@ -94,14 +94,14 @@
     }
 
     .level-icon {
-      font-size: 2.8rem;
+      font-size: 2.1rem;
       flex-shrink: 0;
-      width: 60px;
-      height: 60px;
+      width: 48px;
+      height: 48px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 16px;
+      border-radius: 14px;
     }
 
     .level-icon.bg-blue {
@@ -138,15 +138,16 @@
     }
 
     .level-info .level-title {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: 800;
       color: #333;
-      margin-bottom: 3px;
+      margin-bottom: 2px;
     }
 
     .level-info .level-desc {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: #888;
+      line-height: 1.3;
     }
 
     .badge-coming-soon {
@@ -671,6 +672,227 @@
       z-index: 1000;
     }
 
+    /* ===== Tombol Menuju Halaman Riwayat ===== */
+    .btn-stats-entry {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+      max-width: 480px;
+      margin: 12px auto 0;
+      padding: 12px 20px;
+      border-radius: 18px;
+      border: 3px solid #dee2e6;
+      background: linear-gradient(135deg, #fdf4ff 0%, #fff 100%);
+      text-align: left;
+      cursor: pointer;
+      transition: transform 0.15s, border-color 0.2s, box-shadow 0.2s;
+      user-select: none;
+    }
+
+    .btn-stats-entry:hover {
+      transform: translateY(-4px);
+      border-color: #764ba2;
+      box-shadow: 0 8px 25px rgba(118, 75, 162, 0.18);
+    }
+
+    .btn-stats-entry:active {
+      transform: translateY(0);
+    }
+
+    .btn-stats-entry .stats-entry-icon {
+      font-size: 1.9rem;
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 14px;
+      background: #f3e8ff;
+    }
+
+    .btn-stats-entry .stats-entry-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .btn-stats-entry .stats-entry-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #333;
+    }
+
+    .btn-stats-entry .stats-entry-desc {
+      font-size: 0.85rem;
+      color: #888;
+      margin-top: 2px;
+    }
+
+    .btn-stats-entry:hover .level-arrow {
+      color: #764ba2;
+    }
+
+    /* ===== Halaman Riwayat & Skor ===== */
+    .stats-screen h1 {
+      color: #764ba2;
+      text-shadow: 2px 2px 0 #efe0ff;
+    }
+
+    /* ===== Statistik: Skor Tertinggi & Riwayat ===== */
+    .stats-section {
+      max-width: 480px;
+      margin: 32px auto 0;
+      text-align: left;
+    }
+
+    .stats-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #333;
+      margin: 0 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Skor tertinggi per level */
+    .best-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .best-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      background: #f8f9fa;
+      border: 2px solid #eee;
+    }
+
+    .best-row .best-icon {
+      font-size: 1.4rem;
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+    }
+
+    .best-row .best-name {
+      flex: 1;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #444;
+    }
+
+    .best-row .best-value {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #667eea;
+      background: #eef1ff;
+      padding: 4px 12px;
+      border-radius: 12px;
+      min-width: 62px;
+      text-align: center;
+    }
+
+    .best-row .best-value.empty {
+      color: #bbb;
+      background: #f0f0f0;
+    }
+
+    /* Riwayat 10 terakhir */
+    .history-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0 0 12px;
+    }
+
+    .btn-clear-history {
+      border: none;
+      background: #f8d7da;
+      color: #721c24;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .btn-clear-history:hover {
+      background: #f5c2c7;
+    }
+
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .history-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      background: #fff;
+      border: 2px solid #eee;
+    }
+
+    .history-row .h-icon {
+      font-size: 1.4rem;
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+    }
+
+    .history-row .h-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .history-row .h-level {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #444;
+    }
+
+    .history-row .h-time {
+      font-size: 0.75rem;
+      color: #999;
+    }
+
+    .history-row .h-score {
+      font-size: 0.95rem;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 12px;
+      flex-shrink: 0;
+    }
+
+    .history-empty {
+      padding: 18px;
+      text-align: center;
+      color: #aaa;
+      font-size: 0.9rem;
+      background: #f8f9fa;
+      border-radius: 14px;
+      border: 2px dashed #dee2e6;
+    }
+
     /* ===== Responsif ===== */
     @media (max-width: 500px) {
       h1 {
@@ -703,18 +925,22 @@
       }
 
       .level-card {
-        padding: 16px 18px;
-        gap: 14px;
+        padding: 10px 16px;
+        gap: 12px;
       }
 
       .level-icon {
-        font-size: 2.2rem;
-        width: 50px;
-        height: 50px;
+        font-size: 1.9rem;
+        width: 44px;
+        height: 44px;
       }
 
       .level-info .level-title {
-        font-size: 1.05rem;
+        font-size: 1rem;
+      }
+
+      .level-info .level-desc {
+        font-size: 0.75rem;
       }
 
       .addition-group .obj {
@@ -793,6 +1019,40 @@
           <div class="level-arrow">➜</div>
         </div>
       </div>
+
+      <!-- Tombol menuju halaman Riwayat & Skor Tertinggi -->
+      <button class="btn-stats-entry" onclick="showStats()">
+        <span class="stats-entry-icon">📊</span>
+        <span class="stats-entry-text">
+          <span class="stats-entry-title">Riwayat &amp; Skor Tertinggi</span>
+          <span class="stats-entry-desc">Lihat 5 percobaan terakhir dan rekor tiap level</span>
+        </span>
+        <span class="level-arrow">➜</span>
+      </button>
+    </div>
+
+    <!-- ==================== HALAMAN RIWAYAT & SKOR ==================== -->
+    <div class="stats-screen" id="statsScreen" style="display:none; position:relative;">
+      <button class="btn-close" onclick="showHome()" title="Kembali ke Menu">✕</button>
+      <h1>Riwayat &amp; Skor</h1>
+      <p class="subtitle">Pantau perkembangan belajarmu!</p>
+
+      <!-- Skor tertinggi per level -->
+      <div class="stats-section">
+        <h2 class="stats-title">🏆 Skor Tertinggi per Level</h2>
+        <div class="best-grid" id="bestGrid"></div>
+      </div>
+
+      <!-- Riwayat 10 percobaan terakhir -->
+      <div class="stats-section">
+        <div class="history-header">
+          <h2 class="stats-title" style="margin:0;">📜 5 Riwayat Terakhir</h2>
+          <button class="btn-clear-history" id="clearHistoryBtn" onclick="clearHistory()">Hapus Riwayat</button>
+        </div>
+        <div class="history-list" id="historyList"></div>
+      </div>
+
+      <button class="btn btn-restart" style="display:inline-block; margin-top:28px;" onclick="showHome()">⬅ Kembali ke Menu</button>
     </div>
 
     <!-- ==================== GAME SCREEN (shared) ==================== -->
@@ -843,6 +1103,15 @@
   <script>
     /* ===== Konfigurasi ===== */
     const MAX_QUESTIONS = 10;
+
+    // Metadata level (dipakai untuk tampilan skor tertinggi & riwayat)
+    const LEVELS = {
+      1: { title: 'Menghitung Benda', icon: '🔢', bg: 'bg-blue' },
+      2: { title: 'Penjumlahan', icon: '➕', bg: 'bg-green' },
+      3: { title: 'Pengurangan', icon: '➖', bg: 'bg-orange' },
+      4: { title: 'Lebih Banyak', icon: '⚖️', bg: 'bg-purple' },
+      5: { title: 'Lebih Sedikit', icon: '🔍', bg: 'bg-pink' },
+    };
 
     const OBJECTS = [
       { name: 'apel', emoji: '🍎' },
@@ -903,10 +1172,132 @@
       animate();
     }
 
+    /* ===== Penyimpanan: Skor Tertinggi & Riwayat (localStorage) ===== */
+    const HISTORY_KEY = 'belhitung_history';
+    const BEST_KEY = 'belhitung_best';
+    const MAX_HISTORY = 5;
+
+    function loadHistory() {
+      try { return JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; }
+      catch (e) { return []; }
+    }
+
+    function loadBest() {
+      try { return JSON.parse(localStorage.getItem(BEST_KEY)) || {}; }
+      catch (e) { return {}; }
+    }
+
+    /** Catat satu sesi selesai: tambah ke riwayat & update rekor level */
+    function recordSession(level, correct) {
+      // Riwayat: sisipkan di depan, batasi 10 terakhir (semua level)
+      const history = loadHistory();
+      history.unshift({ level, correct, total: MAX_QUESTIONS, time: Date.now() });
+      if (history.length > MAX_HISTORY) history.length = MAX_HISTORY;
+
+      // Skor tertinggi per level (metrik: jumlah benar)
+      const best = loadBest();
+      if (best[level] == null || correct > best[level]) best[level] = correct;
+
+      try {
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+        localStorage.setItem(BEST_KEY, JSON.stringify(best));
+      } catch (e) { }
+    }
+
+    function clearHistory() {
+      if (!confirm('Hapus semua riwayat percobaan? Skor tertinggi juga akan direset.')) return;
+      try {
+        localStorage.removeItem(HISTORY_KEY);
+        localStorage.removeItem(BEST_KEY);
+      } catch (e) { }
+      renderStats();
+    }
+
+    /** Format waktu: "11 Jul 2026, 14:05" */
+    function formatTime(ts) {
+      const d = new Date(ts);
+      const bulan = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+      const jam = String(d.getHours()).padStart(2, '0');
+      const menit = String(d.getMinutes()).padStart(2, '0');
+      return `${d.getDate()} ${bulan[d.getMonth()]} ${d.getFullYear()}, ${jam}:${menit}`;
+    }
+
+    /** Warna badge skor sesuai persentase */
+    function scoreBadgeStyle(correct, total) {
+      const pct = (correct / total) * 100;
+      if (pct >= 80) return 'background:#d4edda;color:#155724;';
+      if (pct >= 40) return 'background:#fff3cd;color:#856404;';
+      return 'background:#f8d7da;color:#721c24;';
+    }
+
+    function renderBest() {
+      const best = loadBest();
+      const grid = document.getElementById('bestGrid');
+      grid.innerHTML = '';
+      Object.keys(LEVELS).forEach(lv => {
+        const meta = LEVELS[lv];
+        const val = best[lv];
+        const row = document.createElement('div');
+        row.className = 'best-row';
+        row.innerHTML =
+          `<div class="best-icon ${meta.bg}">${meta.icon}</div>` +
+          `<div class="best-name">Level ${lv} — ${meta.title}</div>` +
+          (val == null
+            ? `<div class="best-value empty">–</div>`
+            : `<div class="best-value">${val}/${MAX_QUESTIONS}</div>`);
+        grid.appendChild(row);
+      });
+    }
+
+    function renderHistory() {
+      const history = loadHistory();
+      const list = document.getElementById('historyList');
+      const clearBtn = document.getElementById('clearHistoryBtn');
+      list.innerHTML = '';
+
+      if (history.length === 0) {
+        clearBtn.style.display = 'none';
+        const empty = document.createElement('div');
+        empty.className = 'history-empty';
+        empty.textContent = 'Belum ada riwayat. Ayo mulai bermain! 🎮';
+        list.appendChild(empty);
+        return;
+      }
+
+      clearBtn.style.display = 'inline-block';
+      history.forEach(entry => {
+        const meta = LEVELS[entry.level] || { title: 'Level ' + entry.level, icon: '🎮', bg: 'bg-blue' };
+        const row = document.createElement('div');
+        row.className = 'history-row';
+        row.innerHTML =
+          `<div class="h-icon ${meta.bg}">${meta.icon}</div>` +
+          `<div class="h-info">` +
+            `<div class="h-level">Level ${entry.level} — ${meta.title}</div>` +
+            `<div class="h-time">${formatTime(entry.time)}</div>` +
+          `</div>` +
+          `<div class="h-score" style="${scoreBadgeStyle(entry.correct, entry.total)}">${entry.correct}/${entry.total}</div>`;
+        list.appendChild(row);
+      });
+    }
+
+    function renderStats() {
+      renderBest();
+      renderHistory();
+    }
+
     /* ===== Navigasi ===== */
     function showHome() {
       document.getElementById('homeScreen').style.display = 'block';
       document.getElementById('gameScreen').style.display = 'none';
+      document.getElementById('statsScreen').style.display = 'none';
+    }
+
+    /** Buka halaman Riwayat & Skor Tertinggi */
+    function showStats() {
+      renderStats();
+      document.getElementById('homeScreen').style.display = 'none';
+      document.getElementById('gameScreen').style.display = 'none';
+      document.getElementById('statsScreen').style.display = 'block';
     }
 
     function startLevel(level) {
@@ -1295,6 +1686,9 @@
       msgEl.textContent = message; msgEl.style.background = msgBg; msgEl.style.color = '#333';
 
       if (pct === 100) { playSound('perfect'); launchConfetti(); } else { playSound('finish'); }
+
+      // Simpan hasil sesi ke riwayat & rekor level
+      recordSession(currentLevel, c);
     }
 
     function restartSession() {
@@ -1313,6 +1707,10 @@
       updateScoreDisplay();
       generateQuestion();
     }
+
+    /* ===== Inisialisasi ===== */
+    // Tampilkan skor tertinggi & riwayat saat halaman awal dimuat
+    renderStats();
   </script>
 
   <!-- Google tag (gtag.js) -->
